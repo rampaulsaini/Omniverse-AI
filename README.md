@@ -1,3 +1,4 @@
+https://i.ibb.co/vxM3L1qs/enhanced-image.webp
 # 🌟 Golden Temple Spiritual Insights
 
 ![Golden Temple](assets/golden-temple.webp)
