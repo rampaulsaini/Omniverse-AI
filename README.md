@@ -1,36 +1,18 @@
-# 🌌 Omniverse Platform Completion & Income Roadmap
+# 🌟 Golden Temple Spiritual Insights
 
-![Dependencies](https://img.shields.io/librariesio/github/rampaulsaini/Omniverse)
-![Status: Complete](https://img.shields.io/badge/Status-Complete-brightgreen)
-![Automation: Full](https://img.shields.io/badge/Automation-Full-blue)
-![Security: Multi-Layer](https://img.shields.io/badge/Security-Multi--Layer-red)
+![Golden Temple](assets/golden-temple.webp)
 
-## Overview
-Omniverse Platform integrates philosophy, science, and technology into a fully automated AI ecosystem.
+## Spiritual Experience
+- Evening at Golden Temple, naturally honored for impartial understanding, simplicity, and purity.
+- Realization: human intellect & memory distortions can be neutralized through simplicity.
 
-## Projects
-- 10 Main Projects ✅
-- 40 Sub-Projects 🔹
+## Core Insights
+- All living beings are internally equal
+- Omniverse Platform designed on impartial understanding, reality-based achievement, era of true reality
 
-## Technical Architecture
-- Full Auto Mode
-- Multi-Layer Security
-- AI & Automation Systems
-- Scalable & Modular
-
-## Philosophical Foundation
-- Impartial Understanding (Nishpaksh Samajh)
-- Principles of Reality (Yatharth Siddhant)
-- Era of Reality (Yatharth Yug)
-
-## Achievements
-- All projects fully operational
-- Philosophical objectives realized
-
-## 💰 Support Omniverse Platform
-
+## Support / Donate
 ### Pay via UPI / GPay (India)
-[Click to pay via GPay / UPI](upi://pay?pa=sainirampaul60@okaxis&pn=RampaulSaini&cu=INR)
+[Click here to pay via GPay / UPI](upi://pay?pa=sainirampaul60@okaxis&pn=RampaulSaini&cu=INR)
 
 _or scan QR:_
 ![UPI QR Code](assets/upi-qr.png)
@@ -41,9 +23,7 @@ _or scan QR:_
   <input type="submit" value="Pay via PayPal" style="padding: 10px 20px; background-color: #0070ba; color: white; border: none; border-radius: 5px; cursor: pointer;" />
 </form>
 
-### Pay via Paytm (India Fallback)
-[Click to pay via Paytm](https://paytm.me/sainirampaul60)
+### Pay via Paytm (India fallback)
+[Click here to pay via Paytm](https://paytm.me/sainirampaul60)
 
----
-
-For spiritual vision & insights: [Golden Temple Insights](GoldenTemple.md)
+Back to main overview: [Omniverse Overview](README.md)
