@@ -28,3 +28,4 @@ Return to main project overview: [Omniverse Overview](README.md)
 
 ### 🌐 Visit Live Portal
 [Supreme Omniverse AI Assistant Live](https://rampaulsaini.github.io/Omniverse-AI/)
+🌌 Live Omniverse AI Portal: [https://rampaulsaini.github.io/Omniverse-AI/](https://rampaulsaini.github.io/Omniverse-AI/)
