@@ -1,4 +1,4 @@
-https://i.ibb.co/vxM3L1qs/enhanced-image.webp
+
 # 🌟 Golden Temple Spiritual Insights
 
 ![Golden Temple](assets/golden-temple.webp)
@@ -28,6 +28,14 @@ _or scan QR:_
 [Click here to pay via Paytm](https://paytm.me/sainirampaul60)
 
 Back to main overview: [Omniverse Overview](README.md)
-https://i.ibb.co/vxM3L1qs/enhanced-image.webp
-https://i.ibb.co/x0cMXZv/IMG-20250930-211235.webp
-https://i.ibb.co/BHcTy6sf/Chat-GPT-Image-May-19-2025-05-16-36-AM.webphttps://i.ibb.co/5VXXLmR/Chat-GPT-Image-Jun-24-2025-11-10-10-PM-113035.webphttps://i.ibb.co/wNR3m2nR/Chat-GPT-Image-Jun-24-2025-07-46-06-AM.webphttps://i.ibb.co/QvKhVWWJ/image.webp
+https://i.ibb.co/BHcTy6sf/Chat-GPT-Image-May-19-2025-05-16-36-AM.webp
+
+https://i.ibb.co/5VXXLmR/Chat-GPT-Image-Jun-24-2025-11-10-10-PM-113035.webp
+
+https://i.ibb.co/wNR3m2nR/Chat-GPT-Image-Jun-24-2025-07-46-06-AM.webp
+
+https://i.ibb.co/QvKhVWWJ/image.webp
+
+ Rampaulsaini: https://i.ibb.co/wFz7xb39/IMG-20251007-081550.webp
+: https://i.ibb.co/fdVv0T4H/c60c9d5d-1263-4f6e-a1b9-577186ed5268-093654.webp
+ https://i.ibb.co/5W0PSRvc/Chat-GPT-Image-Jun-23-2025-07-43-08-AM-090744.webp
