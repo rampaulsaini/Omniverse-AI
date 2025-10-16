@@ -62,7 +62,7 @@ function showGuidance() {
   const assistantVoice = document.getElementById("assistant-voice");
   if (assistantVoice && assistantVoice.dataset.canPlay === "true") {
     assistantVoice.currentTime = 0;
-    assistantVoice.play().catch(()=>{ /* autoplay blocked */ });
+    assistantVoice.play().catch(()=>{ /* autoplay blocked silently */ });
   }
 }
 
@@ -79,4 +79,3 @@ async function initGuidance() {
 }
 
 initGuidance();
-    
