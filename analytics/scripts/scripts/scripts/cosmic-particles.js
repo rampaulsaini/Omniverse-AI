@@ -71,4 +71,3 @@ function triggerPulse(duration = 600) {
   requestAnimationFrame(animate);
 }
 window.triggerParticlePulse = triggerPulse;
-    
