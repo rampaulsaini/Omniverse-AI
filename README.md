@@ -39,3 +39,9 @@ https://i.ibb.co/QvKhVWWJ/image.webp
  Rampaulsaini: https://i.ibb.co/wFz7xb39/IMG-20251007-081550.webp
 : https://i.ibb.co/fdVv0T4H/c60c9d5d-1263-4f6e-a1b9-577186ed5268-093654.webp
  https://i.ibb.co/5W0PSRvc/Chat-GPT-Image-Jun-23-2025-07-43-08-AM-090744.webp
+Source: Deploy from a branch
+
+Branch: main
+
+Folder: / (root)
+(Update for re-publish)
