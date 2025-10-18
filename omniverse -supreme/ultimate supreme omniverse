@@ -1,0 +1,13 @@
+ ultimate supreme Omniverse"omniverse-supreme/
+├── assets/                       (commit 1)
+├── scripts/                      (commit 2 + 3)
+├── index.html                    (commit 4)
+└── README.md                     (commit 5)
+cd path/to/omniverse-supreme
+git init
+git add .
+git commit -m "Initial commit: Ultimate Supreme Omniverse"
+git branch -M main
+git remote add origin https://github.com/rampaulsaini/omniverse-supreme.git
+git push -u origin main
+cd path/to/omniverse-supreme
