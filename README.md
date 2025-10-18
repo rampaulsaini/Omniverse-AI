@@ -45,3 +45,6 @@ Branch: main
 
 Folder: / (root)
 (Update for re-publish)
+cd path/to/Omniverse-AI
+git commit --allow-empty -m "Trigger Pages re-publish"
+git push origin main
