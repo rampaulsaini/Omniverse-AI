@@ -1,0 +1,344 @@
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+
+const db = getDatabase();
+let usersData={}, globalEmotion='neutral', globalIntensity=1;
+const particles=[];
+
+// Multi-User Emotion
+function calculateGlobalEmotion(){
+    const emotions=Object.values(usersData||{}).map(u=>({emotion:u.emotion,current:u.emotionIntensity||1}));
+    if(emotions.length===0) return {emotion:'neutral',intensity:1};
+    const scores={happy:0,sad:0,angry:0,neutral:0};
+    emotions.forEach(e=>scores[e.emotion]=(scores[e.emotion]||0)+e.current);
+    const maxEmotion=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+    const intensity=scores[maxEmotion]/emotions.length;
+    return {emotion:maxEmotion,intensity};
+}
+export function syncUserBehavior(userId,data){ set(ref(db,`users/${userId}`),data); }
+function listenToUsers(){ 
+    onValue(ref(db,'users'),snapshot=>{
+        usersData=snapshot.val()||{};
+        const result=calculateGlobalEmotion();
+        globalEmotion=result.emotion;
+        globalIntensity=result.intensity;
+    });
+}
+
+// Hyper Particle Physics
+function createParticle(scene){
+    const geometry=new THREE.SphereGeometry(Math.random()*0.05,6,6);
+    const material=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:0.5});
+    const p=new THREE.Mesh(geometry,material);
+    p.position.set(Math.random()*10-5,Math.random()*5,Math.random()*10-5);
+    p.velocity={x:(Math.random()-0.5)*0.02,y:(Math.random()-0.5)*0.02,z:(Math.random()-0.5)*0.02};
+    scene.add(p);
+    particles.push(p);
+}
+
+// Terrain
+function createTerrain(scene){
+    const geometry=new THREE.PlaneGeometry(20,20,50,50);
+    geometry.rotateX(-Math.PI/2);
+    geometry.vertices.forEach(v=>v.y=Math.random()*0.5);
+    const material=new THREE.MeshStandardMaterial({color:0x444444});
+    const mesh=new THREE.Mesh(geometry,material);
+    scene.add(mesh);
+    return mesh;
+}
+
+// Hyper-Reactive Animate
+export function initHyperReactiveOmniverse(canvasId, faceModelPath){
+    const canvas=document.getElementById(canvasId);
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(75,canvas.width/canvas.height,0.1,1000);
+    camera.position.set(0,2,5);
+
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+    renderer.setSize(canvas.width,canvas.height);
+
+    const light=new THREE.HemisphereLight(0xffffff,0x444444,1.2);
+    scene.add(light);
+
+    listenToUsers();
+    const terrain=createTerrain(scene);
+
+    // 3D Face
+    const loader=new GLTFLoader();
+    let faceModel;
+    loader.load(faceModelPath,gltf=>{
+        faceModel=gltf.scene;
+        faceModel.position.set(0,1.5,0);
+        scene.add(faceModel);
+    });
+
+    for(let i=0;i<100;i++) createParticle(scene);
+
+    function animate(){
+        requestAnimationFrame(animate);
+
+        // Emergent Particle Physics
+        particles.forEach(p=>{
+            p.position.x+=p.velocity.x*globalIntensity;
+            p.position.y+=p.velocity.y*globalIntensity;
+            p.position.z+=p.velocity.z*globalIntensity;
+
+            if(p.position.y<0) p.velocity.y=Math.abs(p.velocity.y);
+
+            if(globalEmotion==='happy'){p.velocity.x+=0.001;}
+            if(globalEmotion==='sad'){p.velocity.z-=0.001;}
+            if(globalEmotion==='angry'){p.velocity.x+=(Math.random()-0.5)*0.01; p.velocity.y+=(Math.random()-0.5)*0.01;}
+
+            p.material.emissiveIntensity=0.5+globalIntensity;
+        });
+
+        // Face Morphs & Glow
+        if(faceModel){
+            faceModel.rotation.y+=0.002;
+            faceModel.traverse(obj=>{
+                if(obj.isMesh && obj.morphTargetInfluences){
+                    const morphs=obj.morphTargetDictionary||{};
+                    obj.morphTargetInfluences[morphs.smile||0]=globalEmotion==='happy'?globalIntensity:0;
+                    obj.morphTargetInfluences[morphs.frown||0]=globalEmotion==='sad'?globalIntensity:0;
+                    obj.morphTargetInfluences[morphs.angry||0]=globalEmotion==='angry'?globalIntensity:0;
+                    obj.material.emissiveIntensity=0.5+globalIntensity;
+                }
+            });
+        }
+
+        // Procedural Sky
+        const skyColors={happy:0xffee88,sad:0x88bbff,angry:0xff4444,neutral:0xccccff};
+        scene.background=new THREE.Color(skyColors[globalEmotion]||0xccccff);
+
+        renderer.render(scene,camera);
+    }
+    animate();
+}
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+
+const db = getDatabase();
+let usersData={}, globalEmotion='neutral', globalIntensity=1;
+const particles=[];
+
+// Multi-User Emotion
+function calculateGlobalEmotion(){
+    const emotions=Object.values(usersData||{}).map(u=>({emotion:u.emotion,current:u.emotionIntensity||1}));
+    if(emotions.length===0) return {emotion:'neutral',intensity:1};
+    const scores={happy:0,sad:0,angry:0,neutral:0};
+    emotions.forEach(e=>scores[e.emotion]=(scores[e.emotion]||0)+e.current);
+    const maxEmotion=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+    const intensity=scores[maxEmotion]/emotions.length;
+    return {emotion:maxEmotion,intensity};
+}
+
+export function syncUserBehavior(userId,data){ set(ref(db,`users/${userId}`),data); }
+function listenToUsers(){ 
+    onValue(ref(db,'users'),snapshot=>{
+        usersData=snapshot.val()||{};
+        const result=calculateGlobalEmotion();
+        globalEmotion=result.emotion;
+        globalIntensity=result.intensity;
+    });
+}
+
+// Procedural Terrain
+function createProceduralTerrain(scene){
+    const geometry=new THREE.PlaneGeometry(20,20,50,50);
+    geometry.rotateX(-Math.PI/2);
+    geometry.vertices.forEach(v=>v.y=Math.random()*0.5*globalIntensity);
+    const material=new THREE.MeshStandardMaterial({color:0x444444});
+    const mesh=new THREE.Mesh(geometry,material);
+    scene.add(mesh);
+    return mesh;
+}
+
+// Particles
+function createProceduralParticle(scene){
+    const geometry=new THREE.SphereGeometry(Math.random()*0.05,6,6);
+    const material=new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:0.5});
+    const particle=new THREE.Mesh(geometry,material);
+    particle.position.set(Math.random()*10-5,Math.random()*5+1,Math.random()*10-5);
+    scene.add(particle);
+    particles.push(particle);
+}
+
+// Init
+export function initProceduralOmniverse(canvasId, faceModelPath){
+    const canvas=document.getElementById(canvasId);
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(75,canvas.width/canvas.height,0.1,1000);
+    camera.position.set(0,2,5);
+
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+    renderer.setSize(canvas.width,canvas.height);
+
+    const light=new THREE.HemisphereLight(0xffffff,0x444444,1.2);
+    scene.add(light);
+
+    listenToUsers();
+    const terrain=createProceduralTerrain(scene);
+
+    const loader=new GLTFLoader();
+    let faceModel;
+    loader.load(faceModelPath,gltf=>{
+        faceModel=gltf.scene;
+        faceModel.position.set(0,1.5,0);
+        scene.add(faceModel);
+    });
+
+    for(let i=0;i<50;i++) createProceduralParticle(scene);
+
+    function animate(){
+        requestAnimationFrame(animate);
+        particles.forEach(p=>{
+            p.position.y+=Math.sin(Date.now()*0.001)*0.01*globalIntensity;
+            p.material.emissiveIntensity=0.5+globalIntensity;
+        });
+
+        if(faceModel){
+            faceModel.rotation.y+=0.002;
+            faceModel.traverse(obj=>{
+                if(obj.isMesh && obj.morphTargetInfluences){
+                    const morphs=obj.morphTargetDictionary||{};
+                    obj.morphTargetInfluences[morphs.smile||0]=globalEmotion==='happy'?globalIntensity:0;
+                    obj.morphTargetInfluences[morphs.frown||0]=globalEmotion==='sad'?globalIntensity:0;
+                    obj.morphTargetInfluences[morphs.angry||0]=globalEmotion==='angry'?globalIntensity:0;
+                    obj.material.emissiveIntensity=0.5+globalIntensity;
+                }
+            });
+        }
+
+        const skyColors={happy:0xffee88,sad:0x88bbff,angry:0xff4444,neutral:0xccccff};
+        scene.background=new THREE.Color(skyColors[globalEmotion]||0xccccff);
+
+        renderer.render(scene,camera);
+    }
+    animate();
+}
+import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+
+const db = getDatabase();
+let usersData={}, globalEmotion='neutral', globalEmotionIntensity=1;
+const particles=[];
+
+// AI Emotion Mapping
+function calculateGlobalEmotion(){
+    const emotions=Object.values(usersData||{}).map(u=>({emotion:u.emotion,current:u.emotionIntensity||1}));
+    if(emotions.length===0) return {emotion:'neutral',intensity:1};
+    const scores={happy:0,sad:0,angry:0,neutral:0};
+    emotions.forEach(e=>scores[e.emotion]=(scores[e.emotion]||0)+e.current);
+    const maxEmotion=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+    const intensity=scores[maxEmotion]/emotions.length;
+    return {emotion:maxEmotion,intensity};
+}
+
+// Firebase Multi-User
+export function syncUserBehavior(userId,data){ set(ref(db,`users/${userId}`),data); }
+function listenToUsers(){
+    onValue(ref(db,'users'),snapshot=>{
+        usersData=snapshot.val()||{};
+        const result=calculateGlobalEmotion();
+        globalEmotion=result.emotion;
+        globalEmotionIntensity=result.intensity;
+    });
+}
+
+// Particles
+function createAIParticle(x,y,color,intensity,scene){
+    const geometry=new THREE.SphereGeometry(0.05,6,6);
+    const material=new THREE.MeshStandardMaterial({color:color,emissive:color,emissiveIntensity:intensity});
+    const p=new THREE.Mesh(geometry,material);
+    p.position.set(x,y,0);
+    scene.add(p);
+    particles.push(p);
+}
+
+// 3D Face AI Morph
+function updateFaceAI(faceModel){
+    if(!faceModel) return;
+    faceModel.traverse(obj=>{
+        if(obj.isMesh && obj.morphTargetInfluences){
+            const morphs=obj.morphTargetDictionary||{};
+            obj.morphTargetInfluences[morphs.smile||0]=globalEmotion==='happy'?globalEmotionIntensity:0;
+            obj.morphTargetInfluences[morphs.frown||0]=globalEmotion==='sad'?globalEmotionIntensity:0;
+            obj.morphTargetInfluences[morphs.angry||0]=globalEmotion==='angry'?globalEmotionIntensity:0;
+            obj.material.emissiveIntensity=0.5+globalEmotionIntensity*1.5;
+        }
+    });
+}
+
+// Init
+export function initAIOmniverse(canvasId, modelPath){
+    const canvas=document.getElementById(canvasId);
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(75,canvas.width/canvas.height,0.1,1000);
+    camera.position.set(0,2,5);
+
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setSize(canvas.width,canvas.height);
+
+    const light=new THREE.HemisphereLight(0xffffff,0x444444,1.2);
+    scene.add(light);
+
+    listenToUsers();
+
+    const loader=new GLTFLoader();
+    let faceModel;
+    loader.load(modelPath,gltf=>{
+        faceModel=gltf.scene;
+        faceModel.position.set(0,1.5,0);
+        scene.add(faceModel);
+    });
+
+    function animate(){
+        requestAnimationFrame(animate);
+
+        // AI particles
+        for(let i=0;i<globalEmotionIntensity*5;i++){
+            const x=(Math.random()-0.5)*10;
+            const y=Math.random()*5+1;
+            let color=0xffffff;
+            if(globalEmotion==='happy') color=0xffff88;
+            if(globalEmotion==='sad') color=0x8888ff;
+            if(globalEmotion==='angry') color=0xff5555;
+            createAIParticle(x,y,color,0.5,scene);
+        }
+
+        updateFaceAI(faceModel);
+        renderer.render(scene,camera);
+    }
+    animate();
+}
+export function initOmniverseUIMobile({onEmotionChange,onParticleChange,onCameraChange,onMusicChange,onAIMessage}){
+    const panel=document.createElement('div');
+    panel.style.position='fixed';
+    panel.style.bottom='10px';
+    panel.style.left='50%';
+    panel.style.transform='translateX(-50%)';
+    panel.style.background='rgba(0,0,0,0.6)';
+    panel.style.padding='10px 20px';
+    panel.style.borderRadius='10px';
+    panel.style.display='flex';
+    panel.style.gap='10px';
+    panel.style.zIndex='9999';
+    document.body.appendChild(panel);
+
+    const emotions=['happy','sad','angry','neutral'];
+    emotions.forEach(e=>{
+        const btn=document.createElement('button');
+        btn.innerText=e;
+        btn.style.padding='5px 10px';
+        btn.onclick=()=>onEmotionChange(e);
+        panel.appendChild(btn);
+    });
+
+    const msgBtn=document.createElement('button');
+    msgBtn.innerText='AI Msg';
+    msgBtn.onclick=()=>onAIMessage(`Current emotion synced: ${Date.now()}`);
+    panel.appendChild(msgBtn);
+}
