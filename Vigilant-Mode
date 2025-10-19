@@ -1,0 +1,49 @@
+# -------------------------------
+# 1️⃣ SSH Verification
+# -------------------------------
+echo "=== SSH Verification ==="
+ssh -T git@github.com || echo "❌ SSH connection failed! Check your key."
+echo
+
+# -------------------------------
+# 2️⃣ GPG Verification
+# -------------------------------
+echo "=== GPG Verification ==="
+# List secret keys and show long Key ID
+gpg --list-secret-keys --keyid-format=long
+
+# Create a temporary signed commit to verify GPG
+TEMP_FILE="gpg_verification_test.txt"
+echo "Vigilant Mode Test" > $TEMP_FILE
+git add $TEMP_FILE
+
+# Get default GPG key (adjust if needed)
+GPG_KEY_ID=$(gpg --list-secret-keys --keyid-format=long | grep sec | awk '{print $2}' | cut -d'/' -f2)
+if [ -z "$GPG_KEY_ID" ]; then
+    echo "❌ No GPG key found! Add a GPG key first."
+else
+    git commit -S -m "Test commit for GPG verification" || echo "❌ GPG commit failed. Check your signing key."
+    echo "✅ GPG commit created. Push and check GitHub for Verified badge."
+fi
+
+# Clean up temporary file
+git reset HEAD $TEMP_FILE
+rm -f $TEMP_FILE
+echo
+
+# -------------------------------
+# 3️⃣ PAT / HTTPS Verification (optional)
+# -------------------------------
+echo "=== PAT / HTTPS Verification ==="
+git ls-remote https://github.com/rampaulsaini/Omniverse-AI.git || echo "❌ HTTPS/PAT not working"
+echo
+
+# -------------------------------
+# 4️⃣ Vigilant Mode readiness
+# -------------------------------
+echo "=== Vigilant Mode Readiness ==="
+echo "✅ Ensure primary email on GitHub is verified"
+echo "✅ Ensure at least one verified method exists (SSH, GPG, or PAT)"
+echo "✅ If all checks passed, refresh Developer Settings → Vigilant Mode page. It should show Verified."
+echo
+echo "🎉 All set! You can now enable Vigilant Mode safely."
