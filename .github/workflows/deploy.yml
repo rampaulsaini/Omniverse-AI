@@ -1,1 +1,9 @@
-
+# Placeholder deploy workflow for Omniverse-AI
+name: CI Deploy
+on: [push, workflow_dispatch]
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploy workflow placeholder"
+      
