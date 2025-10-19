@@ -1,3 +1,5 @@
+# Omniverse-AI
+Vigilant Mode Script: [Click Here](https://gist.github.com/rampaulsaini/39474b6b006d23cbf225d5669cbb5065)
 
 # 🌟 Golden Temple Spiritual Insights
 
@@ -48,3 +50,5 @@ Folder: / (root)
 cd path/to/Omniverse-AI
 git commit --allow-empty -m "Trigger Pages re-publish"
 git push origin main
+# Omniverse-AI
+Vigilant Mode Script: [Click Here](https://gist.github.com/rampaulsaini/39474b6b006d23cbf225d5669cbb5065)
