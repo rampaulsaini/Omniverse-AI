@@ -1,1 +1,38 @@
+# -----------------------------
+# earnings.yml
+# -----------------------------
+name: Omniverse-AI Earnings Auto Update
 
+on:
+  schedule:
+    - cron: '0 */6 * * *' # हर 6 घंटे
+  workflow_dispatch:
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Fetch GitHub Data & Update Dashboard
+      run: node scripts/earnings-dashboard.js
+
+    - name: Commit & Push Changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add earnings-dashboard.html
+        git add scripts/earnings-dashboard.js
+        git commit -m "Auto-update dashboard [ci skip]" || echo "No changes to commit"
+        git push origin main
+        
