@@ -1,1 +1,58 @@
+/* -----------------------------
+   dashboard-style.css
+   ----------------------------- */
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #0a0a0a;
+    color: #00ffff;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-container {
+    max-width: 450px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(0,0,0,0.85);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,255,255,0.3);
+}
+
+h1 {
+    text-align: center;
+    color: #00ffcc;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.stats, .income, .deploy-status {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-left: 3px solid #00ffff;
+}
+
+p {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+span {
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 500px) {
+    .dashboard-container {
+        width: 90%;
+        padding: 15px;
+    }
+    h1 {
+        font-size: 1.2em;
+    }
+    p {
+        font-size: 0.95em;
+    }
+}
 
