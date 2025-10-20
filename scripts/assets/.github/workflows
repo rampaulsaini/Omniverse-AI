@@ -1,0 +1,16 @@
+| File                             | Folder / Location    | Commit message                                 |
+| -------------------------------- | -------------------- | ---------------------------------------------- |
+| `earnings-dashboard.html`        | Root `/Omniverse-AI` | Initial Dashboard HTML commit                  |
+| `scripts/earnings-dashboard.js`  | `/scripts`           | Add JS script for earnings dashboard           |
+| `assets/css/dashboard-style.css` | `/assets/css`        | Add CSS styling for dashboard                  |
+| `.github/workflows/earnings.yml` | `.github/workflows`  | Add GitHub Actions workflow                    |
+| `vigilant-dashboard.sh`          | Root `/Omniverse-AI` | Add Vigilant Mode backup & auto-restore script |
+/Omniverse-AI
+├─ earnings-dashboard.html
+├─ /scripts
+│   └─ earnings-dashboard.js
+├─ /assets/css
+│   └─ dashboard-style.css
+├─ .github/workflows
+│   └─ earnings.yml
+├─ vigilant-dashboard.sh
