@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "repo": "rampaulsaini/Omniverse-AI",
+  "role": "ai-platform",
+  "description": "AI platform worker: inventory scripts/pages, validate local assets, and emit an AI-ready work manifest.",
+  "mode": "free-first",
+  "ai_provider": "optional",
+  "policy": {
+    "no_paid_api_required": true,
+    "do_not_execute_untrusted_code": true,
+    "research_label": "draft",
+    "no_scientific_validation_claims": true
+  }
+}
