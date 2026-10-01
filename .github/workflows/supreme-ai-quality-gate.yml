@@ -1,0 +1,38 @@
+name: Supreme AI Quality Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supreme-ai-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python syntax gate
+        run: python3 -m compileall -q .
+      - name: JSON gate
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          for p in Path('.').rglob('*.json'):
+              if '.git' not in p.parts: json.loads(p.read_text(encoding='utf-8'))
+          print('JSON validation passed')
+          PY
+      - name: Evidence contract gate
+        run: test -f docs/supreme-ai-nlp-quality-contract.md
+      - name: Secret-pattern gate
+        run: |
+          ! grep -RInE '(ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY)' --exclude-dir=.git .
